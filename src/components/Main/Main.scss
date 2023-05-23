@@ -1,0 +1,31 @@
+.main{
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    height: 100vh;
+    justify-content: space-between;
+    margin: 0 auto;
+    max-width: 760px;
+    padding: 0 20px;
+    position: relative;
+}
+.main:before {
+    -webkit-animation: move 8s ease-in-out infinite alternate;
+    animation: move 8s ease-in-out infinite alternate;
+    background-color: #f6c90e;
+    border-radius: 100%;
+    content: "";
+    display: block;
+    height: 100%;
+    left: 50%;
+    position: fixed;
+    top: 50%;
+    -webkit-transform: translateX(-50%) skewY(-8deg);
+    transform: translateX(-50%) skewY(-8deg);
+    width: 300%;
+    z-index: -1;
+}
+@keyframes move {
+    from {top: 400px;}
+    to {bottom: 50px;}
+  }
