@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "./ProductList.scss";
 
-function ProductList() {
+function ProductList(props) {
+  const { product, onAdd, checkAdd, cartItem } = props;
+  console.log(product);
   return (
     <div className="Product-List">
       <div className="icon-header">
@@ -42,48 +44,41 @@ function ProductList() {
       </div>
       <div className="title-header">Our Products</div>
       <div className="list-product">
-        <div className="product-item">
-          <div className="item-image">
-            <img
-              src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1315882/air-zoom-pegasus-36-mens-running-shoe-wide-D24Mcz-removebg-preview.png"
-              alt=""
-            />
-          </div>
-          <div className="title-product">Nike Air Zoom Pegasus 36</div>
-          <div className="content-product">
-            The iconic Nike Air Zoom Pegasus 36 offers more cooling and mesh
-            that targets breathability across high-heat areas. A slimmer heel
-            collar and tongue reduce bulk, while exposed cables give you a snug
-            fit at higher speeds.
-          </div>
-          <div className="item-bottom">
-            <div className="item-price">$108.97</div>
-            <div className="item-button">
-              <div className="item-check">ADD TO CART</div>
-            </div>
-          </div>
-        </div>
-        <div className="product-item">
-          <div className="item-image">
-            <img
-              src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1315882/air-zoom-pegasus-36-mens-running-shoe-wide-D24Mcz-removebg-preview.png"
-              alt=""
-            />
-          </div>
-          <div className="title-product">Nike Air Zoom Pegasus 36</div>
-          <div className="content-product">
-            The iconic Nike Air Zoom Pegasus 36 offers more cooling and mesh
-            that targets breathability across high-heat areas. A slimmer heel
-            collar and tongue reduce bulk, while exposed cables give you a snug
-            fit at higher speeds.
-          </div>
-          <div className="item-bottom">
-            <div className="item-price">$108.97</div>
-            <div className="item-button">
-              <div className="item-check">ADD TO CART</div>
-            </div>
-          </div>
-        </div>
+        {product &&
+          product.length > 0 &&
+          product.map((item, index) => {
+            return (
+              <div className="product-item" key={`${index}`}>
+                <div
+                  className="item-image"
+                  style={{ backgroundColor: `${item.color}` }}
+                >
+                  <img src={item.image} alt="" />
+                </div>
+                <div className="title-product">{item.name}</div>
+                <div className="content-product">{item.description}</div>
+                <div className="item-bottom">
+                  <div className="item-price">${item.price}</div>
+                  {item.check ? (
+                    <div className="item-button">
+                      <div disabled className="checkCover">
+                        <img
+                          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAB2AAAAdgB+lymcgAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAGrSURBVHic7ZgxTsNAEEUfSJgiLS03gD40iAohrgDFpoKLcAYOQBkk0iAqOALKISihQKKAIoTCjIScGNvrXe+uPU8aKVXy399xHAcURVEURVEUZZBshA7giE3gDDgGdoBn4Bp4CRmqKzLgFlgW5hUYB8zVCVvAHavyMh/AYbB0nsmAGeXyMu/AXqCM3qgrL/MYJqYfqtZ+3XyRl5Y8TU9eZgGMAuR1iq38EpgHyOuUNvIL4KT7yO6wueZlvoGL7iO7Q+VReZVX+Zqj8j7D7QJXwANwA5yTP4O7ou19fuIwywpj4G3NB09x8/s6avkD8sfJsgD3wHaL94967ff5X15mht0mRH3yAE8NAjUtIXr5DPhsGKzu5RD12gsj8qabBqzahOhP/i9zy6BlJSQlD3CK3RasKyE5ecFgX4J8J7S95i99S1Yxod0mJHnyRQz2JSR78kUM3ZQQpbxg8FtC1PKCwU8JScgLBrclJCUvGNyUkKS80OYWmby8YFtCL+SFpiX0Sl6oW0Iv5YWqEnotL5SVMAh5oVjCoOSFI/K/zqe/rxVFURRFURRFUaLhB82ywpkTjOW0AAAAAElFTkSuQmCC"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="item-button" onClick={() => onAdd(item)}>
+                      <div disabled className="item-check">
+                        ADD TO CART
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+          })}
       </div>
     </div>
   );
